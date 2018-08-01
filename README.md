@@ -2,11 +2,15 @@
 
 A guide to creating a seamless Windows 10 title bar in your Electron app.
 
+![Final]
+
 I was inspired by the way [Hyper terminal](https://hyper.is/) achieved a native look, and [this tutorial](http://mylifeforthecode.com/making-the-electron-shell-as-pretty-as-the-visual-studio-shell/) which goes some way to achieving that look. But I wanted to go further and make it look properly native, like Hyper.
 
 I'm going to start with the [Electron quick start app](https://github.com/electron/electron-quick-start).
 
 ## 1. Add some styles
+
+![S1]
 
 First, I'm just going to add some basic styles to the quick start app make it look better. Create a CSS file
 
@@ -25,6 +29,8 @@ First, I'm just going to add some basic styles to the quick start app make it lo
 Add a link to it in the `head` of `index.html`.
 
 ## 2. Make the window frameless
+
+![S2]
 
 We're going to remove the standard Windows title bar and border. In `main.js`, modify the `new BrowserWindow()` line so it includes `frame: false`:
 
@@ -73,6 +79,8 @@ The default title bar height in Windows is 32px. We want the titlebar fixed at t
       padding: 20px;
       overflow-y: auto;
     }
+
+![S3]
 
 Tip: you can do <kbd>ctrl</kbd>+<kbd>R</kbd> to reload the app.
 
@@ -162,6 +170,8 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
       grid-column: 3;
     }
 
+![S5]
+
 ## 6. Style the window control buttons
 
 First of all, the buttons shouldn't be part of the window drag region, so we'll exclude them. Also, we don't to be able to select the symbols as text, nor do we want to see a text edit cursor when we hover on the buttons. Speaking of hover, let's add hover effects. The default Windows close button colour is `#E81123`. And, we'll hide the restore button by default (again, we'll implement switching between the maximise/restore buttons later).
@@ -185,9 +195,13 @@ First of all, the buttons shouldn't be part of the window drag region, so we'll 
       display: none;
     }
 
+![S6]
+
 ## 7. Add the window title
 
 There are lots of ways you could do this, depending on whether you wanted to add any buttons or file menus to the titlebar, and whether you wanted the title centered or to the left.
+
+![S7]
 
 My way is to put it the left. Add this inside the `#drag-region` element:
 
@@ -217,6 +231,8 @@ I've gone with grid, as you can change the template columns to suit whatever you
     }
 
 At this point, you can remove the background colour from `#titlebar` and admire your handywork. Or, you could leave in the background colour, if you prefer.
+
+![Final]
 
 ## 8. Implement window controls functionality
 
@@ -283,3 +299,12 @@ Now, open `renderer.js`. We're going to code the windows controls, which is part
             }
         }
     })();
+
+
+[Final]: screenshots/Final.png
+[S1]: screenshots/S1.png
+[S2]: screenshots/S2.png
+[S3]: screenshots/S3.png
+[S5]: screenshots/S5.png
+[S6]: screenshots/S6.png
+[S7]: screenshots/S7.png
