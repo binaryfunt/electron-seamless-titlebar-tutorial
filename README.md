@@ -14,8 +14,6 @@ I'm going to start with the [Electron quick start app](https://github.com/electr
 
 First, I'm just going to add some basic styles to the quick start app make it look better. Create a CSS file
 
-<!-- language: lang-css -->
-
     * {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
     html {box-sizing: border-box;}
     *, *:before, *:after {box-sizing: inherit;} /* ****/
@@ -36,8 +34,6 @@ Add a link to it in the `head` of `index.html`.
 
 We're going to remove the standard Windows title bar and border. In `main.js`, modify the `new BrowserWindow()` line so it includes `frame: false`:
 
-<!-- language: lang-js -->
-
     mainWindow = new BrowserWindow({width: 1200, height: 800, frame: false})
 
 Tip: uncomment `mainWindow.webContents.openDevTools()` to open developer tools every time the app is run.
@@ -47,8 +43,6 @@ If you run the app now, you'll see the title bar is gone. See the [docs](https:/
 ## 3. Create a replacement title bar
 
 We're going to create our own title bar using HTML and CSS. Let's also put the rest of the app content in its own div:
-
-<!-- language: lang-html -->
 
     <body>
 
@@ -65,8 +59,6 @@ We're going to create our own title bar using HTML and CSS. Let's also put the r
     </body>
 
 The default title bar height in Windows is 32px. We want the titlebar fixed at the top of the DOM. I'm giving it a background colour temporarily so we can see where it is. I've also added a subtle 1px border to the window. We need to add 32px top margin to `#main`, and change the `overflow-y` for `#main` and `body` (`#main` is now replacing `body` as the scrolling content).
-
-<!-- language: lang-css -->
 
     body {
       border: 1px solid #48545c;
@@ -96,15 +88,11 @@ Tip: you can do <kbd>ctrl</kbd>+<kbd>R</kbd> to reload the app.
 
 You might notice our new titlebar isn't actually draggable. To fix this, we add a div to `#titlebar`:
 
-<!-- language: lang-html -->
-
     <header id="titlebar">
       <div id="drag-region"></div>
     </header>
 
 We need to give it a style of `-webkit-app-region: drag`. The reason we don't just add this style to `#titlebar` is that we also want the cursor to change to resize when we hover near the edge of the window at the top. If the whole title bar was draggable, this wouldn't happen. So we also add some padding to the non-draggable `#titlebar` element.
-
-<!-- language: lang-css -->
 
     #titlebar {
       padding: 4px;
@@ -130,8 +118,6 @@ It's time to add the minimise, maximise, restore and close buttons. To do this, 
 
 We'll put the buttons inside `#drag-region`
 
-<!-- language: lang-html -->
-
     <header id="titlebar">
       <div id="drag-region">
         <div id="window-controls">
@@ -152,8 +138,6 @@ We'll put the buttons inside `#drag-region`
     </header>
 
 The buttons are 46px wide & 32px high, and the font size for the symbols is 10px. We'll use [CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/) to overlap the maximise/restore buttons, and later use JavaScript to alternate between them.
-
-<!-- language: lang-css -->
 
     #titlebar {
       color: #FFF;
@@ -192,8 +176,6 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
 
 First of all, the buttons shouldn't be part of the window drag region, so we'll exclude them. Also, we don't to be able to select the symbols as text, nor do we want to see a text edit cursor when we hover on the buttons. Speaking of hover, let's add hover effects. The default Windows close button colour is `#E81123`. And, we'll hide the restore button by default (again, we'll implement switching between the maximise/restore buttons later).
 
-<!-- language: lang-css -->
-
     #window-controls {
       -webkit-app-region: no-drag;
     }
@@ -223,15 +205,11 @@ There are lots of ways you could do this, depending on whether you wanted to add
 
 My way is to put it the left. Add this inside the `#drag-region` element:
 
-<!-- language: lang-html -->
-
     <div id="window-title">
       <span>Electron quick start</span>
     </div>
 
 I've gone with grid, as you can change the template columns to suit whatever you decide to do. Here we have an auto width column and a 138px column (3 * 46px = 138px). The default Windows window title font size is 12px. The default margin/padding on the left of the title is 10px, but 2px is already taken up by `#titlebar`'s padding, so 8px of margin/padding is needed on the left. I've taken the precaution of hiding any overflowing text if the title happens to be very long.
-
-<!-- language: lang-css -->
 
     #titlebar #drag-region {
       display: grid;
@@ -259,8 +237,6 @@ At this point, you can remove the background colour from `#titlebar` and admire 
 ## 8. Implement window controls functionality
 
 Now, open `renderer.js`. We're going to code the windows controls, which is part of a single BrowserWindow instance and so should be in `renderer.js` as opposed to `main.js` ([see the docs](https://electronjs.org/docs/tutorial/application-architecture)). Actually, I'm tired and it's late at night, so I'm going to leave you with the code to go through yourself!
-
-<!-- language: lang-js -->
 
     // This file is required by the index.html file and will
     // be executed in the renderer process for that window.
