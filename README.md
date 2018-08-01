@@ -10,25 +10,17 @@ I'm going to start with the [Electron quick start app](https://github.com/electr
 
 First, I'm just going to add some basic styles to the quick start app make it look better. Create a CSS file
 
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
+    * {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
+    html {box-sizing: border-box;}
+    *, *:before, *:after {box-sizing: inherit;} /* ****/
+    html, body {height: 100%; margin: 0;}
 
     body {
       font-family: "Segoe UI", sans-serif;
-      background: #1A2933;
-      color: #FFF;
+      background: #1A2933; color: #FFF;
     }
-    h1 {
-      margin: 0 0 10px 0;
-      font-weight: 600;
-      line-height: 1.2;
-    }
-    p {
-      margin-top: 10px;
-      color: rgba(255,255,255,0.4);
-    }
+    h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
+    p {margin-top: 10px; color: rgba(255,255,255,0.4);}
 
 Add a link to it in the `head` of `index.html`.
 
@@ -224,7 +216,7 @@ I've gone with grid, as you can change the template columns to suit whatever you
       line-height: 1.5;
     }
 
-At this point, you can remove the background colour from `#titlebar` and admire your (well, my) handywork. Or, you could leave in the background colour, if you prefer.
+At this point, you can remove the background colour from `#titlebar` and admire your handywork. Or, you could leave in the background colour, if you prefer.
 
 ## 8. Implement window controls functionality
 
