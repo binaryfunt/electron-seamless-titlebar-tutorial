@@ -37,8 +37,10 @@ Add a link to it in the `head` of `index.html`.
 We're going to remove the standard Windows title bar and border. In `main.js`, modify the `new BrowserWindow()` line so it includes `frame: false`:
 
 ```javascript
-mainWindow = new BrowserWindow({width: 1200, height: 800, frame: false})
+mainWindow = new BrowserWindow({width: 1200, height: 800, frame: false, backgroundColor: '#FFF'});
 ```
+
+N.B. we have included `backgroundColor: '#FFF'` so that subpixel anti-aliasing is enabled ([see here for details](https://github.com/electron/electron/issues/6344#issuecomment-420371918)).
 
 Tip: uncomment `mainWindow.webContents.openDevTools()` to open developer tools every time the app is run.
 
@@ -199,11 +201,11 @@ First of all, the buttons shouldn't be part of the window drag region, so we'll 
 #window-controls .button {
   user-select: none;
   cursor: default;
-  opacity: 0.8;
+  color: #BBB;
 }
 #window-controls .button:hover {
   background: rgba(255,255,255,0.2);
-  opacity: 1;
+  color: #FFF;
 }
 #window-controls #close-button:hover {
   background: #E81123;
