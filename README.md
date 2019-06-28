@@ -37,7 +37,15 @@ Add a link to it in the `head` of `index.html`.
 We're going to remove the standard Windows title bar and border. In `main.js`, modify the `new BrowserWindow()` line so it includes `frame: false`:
 
 ```javascript
-mainWindow = new BrowserWindow({width: 1200, height: 800, frame: false, backgroundColor: '#FFF'});
+mainWindow = new BrowserWindow({
+    width: 1200,
+    height: 800,
+    frame: false,
+    backgroundColor: '#FFF',
+    webPreferences: {
+        nodeIntegration: true
+    }
+});
 ```
 
 N.B. we have included `backgroundColor: '#FFF'` so that subpixel anti-aliasing is enabled ([see here for details](https://github.com/electron/electron/issues/6344#issuecomment-420371918)).
