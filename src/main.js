@@ -11,7 +11,10 @@ function createWindow () {
         width: 1200,
         height: 800,
         frame: false,
-        backgroundColor: '#FFF'
+        backgroundColor: '#FFF',
+        webPreferences: {
+            nodeIntegration: true
+        }
     });
 
     // and load the index.html of the app.
