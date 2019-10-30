@@ -272,70 +272,63 @@ At this point, you can remove the background colour from `#titlebar` and admire 
 
 ## 8. Implement window controls functionality
 
-Now, open `renderer.js`. We're going to code the windows controls, which is part of a single BrowserWindow instance and so should be in `renderer.js` as opposed to `main.js` ([see the docs](https://electronjs.org/docs/tutorial/application-architecture)). Actually, I'm tired and it's late at night, so I'm going to leave you with the code to go through yourself!
+Now, open `renderer.js`. We're going to code the windows controls, which is part of a single BrowserWindow instance and so should be in `renderer.js` as opposed to `main.js` ([see the docs](https://electronjs.org/docs/tutorial/application-architecture)). The code isn't too complex so here it is in its entirety:
 
 ```javascript
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
 const remote = require('electron').remote;
 
-(function handleWindowControls() {
-    // When document has loaded, initialise
-    document.onreadystatechange = () => {
-        if (document.readyState == "complete") {
-            init();
-        }
-    };
+// When document has loaded, initialise
+document.onreadystatechange = () => {
+    if (document.readyState == "complete") {
+        handleWindowControls();
+    }
+};
 
-    function init() {
-        let window = remote.getCurrentWindow();
-        const minButton = document.getElementById('min-button'),
-            maxButton = document.getElementById('max-button'),
-            restoreButton = document.getElementById('restore-button'),
-            closeButton = document.getElementById('close-button');
+function handleWindowControls() {
+    let window = remote.getCurrentWindow();
+    const minButton = document.getElementById('min-button'),
+        maxButton = document.getElementById('max-button'),
+        restoreButton = document.getElementById('restore-button'),
+        closeButton = document.getElementById('close-button');
 
-        minButton.addEventListener("click", event => {
-            window = remote.getCurrentWindow();
-            window.minimize();
-        });
+    minButton.addEventListener("click", event => {
+        window = remote.getCurrentWindow();
+        window.minimize();
+    });
 
-        maxButton.addEventListener("click", event => {
-            window = remote.getCurrentWindow();
-            window.maximize();
-            toggleMaxRestoreButtons();
-        });
+    maxButton.addEventListener("click", event => {
+        window = remote.getCurrentWindow();
+        window.maximize();
+    });
 
-        restoreButton.addEventListener("click", event => {
-            window = remote.getCurrentWindow();
-            window.unmaximize();
-            toggleMaxRestoreButtons();
-        });
+    restoreButton.addEventListener("click", event => {
+        window = remote.getCurrentWindow();
+        window.unmaximize();
+    });
 
-        // Toggle maximise/restore buttons when maximisation/unmaximisation
-        // occurs by means other than button clicks e.g. double-clicking
-        // the title bar:
-        toggleMaxRestoreButtons();
-        window.on('maximize', toggleMaxRestoreButtons);
-        window.on('unmaximize', toggleMaxRestoreButtons);
+    // Toggle maximise/restore buttons when maximisation/unmaximisation
+    // occurs by means other than button clicks e.g. double-clicking
+    // the title bar:
+    toggleMaxRestoreButtons();
+    window.on('maximize', toggleMaxRestoreButtons);
+    window.on('unmaximize', toggleMaxRestoreButtons);
 
-        closeButton.addEventListener("click", event => {
-            window = remote.getCurrentWindow();
-            window.close();
-        });
+    closeButton.addEventListener("click", event => {
+        window = remote.getCurrentWindow();
+        window.close();
+    });
 
-        function toggleMaxRestoreButtons() {
-            window = remote.getCurrentWindow();
-            if (window.isMaximized()) {
-                maxButton.style.display = "none";
-                restoreButton.style.display = "flex";
-            } else {
-                restoreButton.style.display = "none";
-                maxButton.style.display = "flex";
-            }
+    function toggleMaxRestoreButtons() {
+        window = remote.getCurrentWindow();
+        if (window.isMaximized()) {
+            maxButton.style.display = "none";
+            restoreButton.style.display = "flex";
+        } else {
+            restoreButton.style.display = "none";
+            maxButton.style.display = "flex";
         }
     }
-})();
+}
 ```
 
 [Final]: screenshots/Final.png
