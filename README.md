@@ -4,19 +4,19 @@ A guide to creating a seamless Windows 10 title bar in your Electron app.
 
 ![Final]
 
-I was inspired by the way [Hyper terminal](https://hyper.is/) achieved a native look, and [this tutorial](http://mylifeforthecode.com/making-the-electron-shell-as-pretty-as-the-visual-studio-shell/) (thanks, [Shawn Rakowski](https://github.com/srakowski)!) which goes some way to achieving that look. But I wanted to go further and make it look properly native, like Hyper.
+I was inspired by the way [Hyper terminal](https://hyper.is/) achieved a native look, and a tutorial by [Shawn Rakowski](https://github.com/srakowski) (no longer available, it seems).
 
 I'm going to start with the [Electron quick start app](https://github.com/electron/electron-quick-start). The full example source code is located in the `src` directory of this repo.
 
 #### Note
 
-Currently, there is a bug with maximization on Electron versions 6.0.0+ on Windows (see [#6](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/issues/6)). The latest version of Electron you can use is 5.0.11.
+Currently, there is a bug with window maximization on Electron versions 6.0.0+ on Windows (see [#6](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/issues/6)). The latest version of Electron you can use is 5.0.11.
 
 ## 1. Add some styles
 
 ![S1]
 
-First, I'm just going to add some basic styles to the quick start app make it look better. Create a CSS file
+First, I'm just going to add some basic styles to the quick start app make it look a bit better than some sort of web 1.0 site. Create a CSS file
 
 ```css
 * {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
@@ -52,7 +52,7 @@ mainWindow = new BrowserWindow({
 });
 ```
 
-N.B. we have included `backgroundColor: '#FFF'` so that subpixel anti-aliasing is enabled ([see here for details](https://github.com/electron/electron/issues/6344#issuecomment-420371918)).
+N.B. we have included `backgroundColor: '#FFF'` so that subpixel anti-aliasing is enabled ([see here for details](https://github.com/electron/electron/issues/6344#issuecomment-420371918)). `nodeIntegration` is enabled for the window controls JavaScript to work (which we will get to later).
 
 Tip: uncomment `mainWindow.webContents.openDevTools()` to open developer tools every time the app is run.
 
@@ -266,7 +266,7 @@ I've gone with grid, as you can change the template columns to suit whatever you
 }
 ```
 
-At this point, you can remove the background colour from `#titlebar` and admire your handywork. Or, you could leave in the background colour, if you prefer.
+At this point, you can remove the background colour from `#titlebar` and admire your handywork.
 
 ![Final]
 
