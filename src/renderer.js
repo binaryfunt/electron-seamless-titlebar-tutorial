@@ -15,19 +15,19 @@ let win = remote.getCurrentWindow();
 function handleWindowControls() {
     // Make minimise/maximise/restore/close buttons work when they are clicked
     document.getElementById('min-button').addEventListener("click", event => {
-      win.minimize();
+        win.minimize();
     });
 
     document.getElementById('max-button').addEventListener("click", event => {
-      win.maximize();
+        win.maximize();
     });
 
     document.getElementById('restore-button').addEventListener("click", event => {
-      win.unmaximize();
+        win.unmaximize();
     });
 
     document.getElementById('close-button').addEventListener("click", event => {
-      win.close();
+        win.close();
     });
 
     // Toggle maximise/restore buttons when maximisation/unmaximisation occurs
@@ -44,5 +44,4 @@ function handleWindowControls() {
             maxButton.style.display = "flex";
         }
     }
-
 }
