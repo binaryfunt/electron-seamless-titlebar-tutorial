@@ -8,8 +8,8 @@ let mainWindow;
 function createWindow () {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 1200,
-        height: 800,
+        width: 800,
+        height: 600,
         frame: false,
         backgroundColor: '#FFF',
         webPreferences: {
@@ -18,7 +18,7 @@ function createWindow () {
     });
 
     // and load the index.html of the app.
-    mainWindow.loadFile('src/index.html');
+    mainWindow.loadFile('index.html');
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();

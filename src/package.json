@@ -2,7 +2,7 @@
   "name": "electron-seamless-titlebar-tutorial",
   "version": "1.0.0",
   "description": "A minimal Electron application",
-  "main": "src/main.js",
+  "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
