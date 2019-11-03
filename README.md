@@ -26,10 +26,20 @@ html, body {height: 100%; margin: 0;}
 
 body {
   font-family: "Segoe UI", sans-serif;
-  background: #1A2933; color: #FFF;
+  background: #1A2933;
+  color: #FFF;
 }
-h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
-p {margin-top: 10px; color: rgba(255,255,255,0.4);}
+
+h1 {
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  margin-top: 10px;
+  color: rgba(255,255,255,0.4);
+}
 ```
 
 Add a link to it in the `head` of `index.html`.
@@ -122,6 +132,7 @@ We need to give it a style of `-webkit-app-region: drag`. The reason we don't ju
 #titlebar {
   padding: 4px;
 }
+
 #titlebar #drag-region {
   width: 100%;
   height: 100%;
@@ -171,6 +182,7 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
 #titlebar {
   color: #FFF;
 }
+
 #window-controls {
   display: grid;
   grid-template-columns: repeat(3, 46px);
@@ -181,6 +193,7 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
   font-family: "Segoe MDL2 Assets";
   font-size: 10px;
 }
+
 #window-controls .button {
   grid-row: 1 / span 1;
   display: flex;
@@ -192,9 +205,11 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
 #window-controls #min-button {
   grid-column: 1;
 }
+
 #window-controls #max-button, #window-controls #restore-button {
   grid-column: 2;
 }
+
 #window-controls #close-button {
   grid-column: 3;
 }
@@ -210,18 +225,22 @@ First of all, the buttons shouldn't be part of the window drag region, so we'll 
 #window-controls {
   -webkit-app-region: no-drag;
 }
+
 #window-controls .button {
   user-select: none;
   cursor: default;
   color: #BBB;
 }
+
 #window-controls .button:hover {
   background: rgba(255,255,255,0.2);
   color: #FFF;
 }
+
 #window-controls #close-button:hover {
   background: #E81123;
 }
+
 #window-controls #restore-button {
   display: none;
 }
@@ -250,6 +269,7 @@ I've gone with grid, as you can change the template columns to suit whatever you
   display: grid;
   grid-template-columns: auto 138px;
 }
+
 #window-title {
   grid-column: 1;
   display: flex;
@@ -259,6 +279,7 @@ I've gone with grid, as you can change the template columns to suit whatever you
   margin-left: 8px;
   overflow-x: hidden;
 }
+
 #window-title span {
   overflow: hidden;
   text-overflow: ellipsis;
