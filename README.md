@@ -52,8 +52,8 @@ We're going to remove the standard Windows title bar and border. In `main.js`, m
 
 ```javascript
 mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 800,
+    height: 600,
     frame: false,
     backgroundColor: '#FFF',
     webPreferences: {
@@ -105,8 +105,9 @@ body {
 }
 
 #main {
+  position: absolute;
   height: calc(100% - 32px);
-  margin-top: 32px;
+  top: 32px;
   padding: 20px;
   overflow-y: auto;
 }
@@ -229,20 +230,23 @@ First of all, the buttons shouldn't be part of the window drag region, so we'll 
 #window-controls .button {
   user-select: none;
   cursor: default;
-  color: #BBB;
 }
 
 #window-controls .button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+#window-controls .button:active {
   background: rgba(255,255,255,0.2);
-  color: #FFF;
 }
 
-#window-controls #close-button:hover {
-  background: #E81123;
+#close-button:hover {
+  background: #E81123 !important;
 }
 
-#window-controls #restore-button {
-  display: none;
+#close-button:active {
+  background: #f1707a !important;
+  color: #000;
 }
 ```
 
@@ -274,10 +278,10 @@ I've gone with grid, as you can change the template columns to suit whatever you
   grid-column: 1;
   display: flex;
   align-items: center;
-  font-family: "Segoe UI", sans-serif;
-  font-size: 12px;
   margin-left: 8px;
   overflow-x: hidden;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
 }
 
 #window-title span {
@@ -332,15 +336,39 @@ function handleWindowControls() {
 
     function toggleMaxRestoreButtons() {
         if (win.isMaximized()) {
-            maxButton.style.display = "none";
-            restoreButton.style.display = "flex";
+            document.body.classList.add('maximized');
         } else {
-            restoreButton.style.display = "none";
-            maxButton.style.display = "flex";
+            document.body.classList.remove('maximized');
         }
     }
 }
 ```
+
+## 9. Adding styling for when the window is maximized
+Now all there is to do is to add some CSS for when the window is in it's maximized state. This is so we can do things like switch the maximize/restore buttons and remove the border around the window and padding in the title bar.
+```css
+body.maximized {
+  border: none;
+}
+
+.maximized #titlebar {
+  width: 100%;
+  padding: 0;
+}
+
+.maximized #window-title {
+  margin-left: 12px;
+}
+
+.maximized #restore-button {
+  display: flex !important;
+}
+
+.maximized #max-button {
+  display: none;
+}
+```
+
 
 [Final]: screenshots/Final.png
 [S1]: screenshots/S1.png

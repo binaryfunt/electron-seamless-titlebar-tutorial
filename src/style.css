@@ -27,6 +27,10 @@ body {
   overflow-y: hidden;
 }
 
+body.maximized {
+  border: none;
+}
+
 #titlebar {
   display: block;
   position: fixed;
@@ -34,9 +38,15 @@ body {
   width: calc(100% - 2px);
 }
 
+.maximized #titlebar {
+  width: 100%;
+  padding: 0;
+}
+
 #main {
+  position: absolute;
   height: calc(100% - 32px);
-  margin-top: 32px;
+  top: 32px;
   padding: 20px;
   overflow-y: auto;
 }
@@ -68,6 +78,10 @@ body {
   overflow-x: hidden;
   font-family: "Segoe UI", sans-serif;
   font-size: 12px;
+}
+
+.maximized #window-title {
+  margin-left: 12px;
 }
 
 #window-title span {
@@ -103,30 +117,45 @@ body {
 #window-controls .button {
   user-select: none;
   cursor: default;
-  color: #BBB;
 }
 
 #window-controls .button:hover {
-  background: rgba(255,255,255,0.2);
-  color: #FFF;
+  background: rgba(255,255,255,0.1);
 }
 
-#window-controls #min-button {
+#window-controls .button:active {
+  background: rgba(255,255,255,0.2);
+}
+
+#close-button:hover {
+  background: #E81123 !important;
+}
+
+#close-button:active {
+  background: #f1707a !important;
+  color: #000;
+}
+
+#min-button {
   grid-column: 1;
 }
 
-#window-controls #max-button, #window-controls #restore-button {
+#max-button, #restore-button {
   grid-column: 2;
 }
 
-#window-controls #restore-button {
-  display: none;
-}
-
-#window-controls #close-button {
+#close-button {
   grid-column: 3;
 }
 
-#window-controls #close-button:hover {
-  background: #E81123;
+#restore-button {
+  display: none !important;
+}
+
+.maximized #restore-button {
+  display: flex !important;
+}
+
+.maximized #max-button {
+  display: none;
 }

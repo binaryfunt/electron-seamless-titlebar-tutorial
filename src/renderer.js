@@ -37,11 +37,9 @@ function handleWindowControls() {
 
     function toggleMaxRestoreButtons() {
         if (win.isMaximized()) {
-            maxButton.style.display = "none";
-            restoreButton.style.display = "flex";
+            document.body.classList.add('maximized');
         } else {
-            restoreButton.style.display = "none";
-            maxButton.style.display = "flex";
+            document.body.classList.remove('maximized');
         }
     }
 }
