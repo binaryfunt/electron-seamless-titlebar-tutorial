@@ -10,44 +10,33 @@ document.onreadystatechange = () => {
     }
 };
 
+let win = remote.getCurrentWindow();
+
 function handleWindowControls() {
-
-    let window = remote.getCurrentWindow();
-    const minButton = document.getElementById('min-button'),
-        maxButton = document.getElementById('max-button'),
-        restoreButton = document.getElementById('restore-button'),
-        closeButton = document.getElementById('close-button');
-
-    minButton.addEventListener("click", event => {
-        window = remote.getCurrentWindow();
-        window.minimize();
+    // Make minimise/maximise/restore/close buttons work when they are clicked
+    document.getElementById('min-button').addEventListener("click", event => {
+      win.minimize();
     });
 
-    maxButton.addEventListener("click", event => {
-        window = remote.getCurrentWindow();
-        window.maximize();
+    document.getElementById('max-button').addEventListener("click", event => {
+      win.maximize();
     });
 
-    restoreButton.addEventListener("click", event => {
-        window = remote.getCurrentWindow();
-        window.unmaximize();
+    document.getElementById('restore-button').addEventListener("click", event => {
+      win.unmaximize();
     });
 
-    // Toggle maximise/restore buttons when maximisation/unmaximisation
-    // occurs by means other than button clicks e.g. double-clicking
-    // the title bar:
+    document.getElementById('close-button').addEventListener("click", event => {
+      win.close();
+    });
+
+    // Toggle maximise/restore buttons when maximisation/unmaximisation occurs
     toggleMaxRestoreButtons();
-    window.on('maximize', toggleMaxRestoreButtons);
-    window.on('unmaximize', toggleMaxRestoreButtons);
-
-    closeButton.addEventListener("click", event => {
-        window = remote.getCurrentWindow();
-        window.close();
-    });
+    win.on('maximize', toggleMaxRestoreButtons);
+    win.on('unmaximize', toggleMaxRestoreButtons);
 
     function toggleMaxRestoreButtons() {
-        window = remote.getCurrentWindow();
-        if (window.isMaximized()) {
+        if (win.isMaximized()) {
             maxButton.style.display = "none";
             restoreButton.style.display = "flex";
         } else {
