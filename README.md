@@ -177,7 +177,7 @@ We'll put the buttons inside `#drag-region`
 </header>
 ```
 
-The buttons are 46px wide & 32px high, and the font size for the symbols is 10px. We'll use [CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/) to overlap the maximise/restore buttons, and later use JavaScript to alternate between them.
+The buttons are 46px wide & 32px high, and the font size for the symbols is 10px. We'll use [CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/) to overlap the maximise/restore buttons, and later use CSS to alternate between them.
 
 ```css
 #titlebar {
@@ -247,6 +247,10 @@ First of all, the buttons shouldn't be part of the window drag region, so we'll 
 #close-button:active {
   background: #f1707a !important;
   color: #000;
+}
+
+#restore-button {
+  display: none !important;
 }
 ```
 
