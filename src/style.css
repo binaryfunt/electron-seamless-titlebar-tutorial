@@ -27,10 +27,6 @@ body {
   overflow-y: hidden;
 }
 
-body.maximized {
-  border: none;
-}
-
 #titlebar {
   display: block;
   position: fixed;
@@ -44,9 +40,8 @@ body.maximized {
 }
 
 #main {
-  position: absolute;
   height: calc(100% - 32px);
-  top: 32px;
+  margin-top: 32px;
   padding: 20px;
   overflow-y: auto;
 }
@@ -139,11 +134,9 @@ body.maximized {
 #min-button {
   grid-column: 1;
 }
-
 #max-button, #restore-button {
   grid-column: 2;
 }
-
 #close-button {
   grid-column: 3;
 }

@@ -29,17 +29,8 @@ body {
   background: #1A2933;
   color: #FFF;
 }
-
-h1 {
-  margin: 0 0 10px 0;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-p {
-  margin-top: 10px;
-  color: rgba(255,255,255,0.4);
-}
+h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
+p {margin-top: 10px; color: rgba(255,255,255,0.4);}
 ```
 
 Add a link to it in the `head` of `index.html`.
@@ -177,7 +168,7 @@ We'll put the buttons inside `#drag-region`
 </header>
 ```
 
-The buttons are 46px wide & 32px high, and the font size for the symbols is 10px. We'll use [CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/) to overlap the maximise/restore buttons, and later use CSS to alternate between them.
+The buttons are 46px wide & 32px high, and the font size for the symbols is 10px. We'll use [CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/) to overlap the maximise/restore buttons, and later use JavaScript to alternate between them.
 
 ```css
 #titlebar {
@@ -206,11 +197,9 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
 #window-controls #min-button {
   grid-column: 1;
 }
-
 #window-controls #max-button, #window-controls #restore-button {
   grid-column: 2;
 }
-
 #window-controls #close-button {
   grid-column: 3;
 }
@@ -231,11 +220,9 @@ First of all, the buttons shouldn't be part of the window drag region, so we'll 
   user-select: none;
   cursor: default;
 }
-
 #window-controls .button:hover {
   background: rgba(255,255,255,0.1);
 }
-
 #window-controls .button:active {
   background: rgba(255,255,255,0.2);
 }
@@ -243,7 +230,6 @@ First of all, the buttons shouldn't be part of the window drag region, so we'll 
 #close-button:hover {
   background: #E81123 !important;
 }
-
 #close-button:active {
   background: #f1707a !important;
   color: #000;
@@ -313,9 +299,9 @@ document.onreadystatechange = () => {
     }
 };
 
-let win = remote.getCurrentWindow();
-
 function handleWindowControls() {
+
+    let win = remote.getCurrentWindow();
     // Make minimise/maximise/restore/close buttons work when they are clicked
     document.getElementById('min-button').addEventListener("click", event => {
         win.minimize();
@@ -350,11 +336,8 @@ function handleWindowControls() {
 
 ## 9. Adding styling for when the window is maximized
 Now all there is to do is to add some CSS for when the window is in it's maximized state. This is so we can do things like switch the maximize/restore buttons and remove the border around the window and padding in the title bar.
-```css
-body.maximized {
-  border: none;
-}
 
+```css
 .maximized #titlebar {
   width: 100%;
   padding: 0;
