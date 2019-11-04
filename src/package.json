@@ -17,6 +17,6 @@
   "author": "binaryfunt",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^7.0.0"
+    "electron": "<6.0.0"
   }
 }
