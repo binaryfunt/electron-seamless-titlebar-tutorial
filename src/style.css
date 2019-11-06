@@ -1,23 +1,31 @@
+/* Basic styling */
 * {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
 html {box-sizing: border-box;}
 *, *:before, *:after {box-sizing: inherit;}
-
-html, body {
-    height: 100%;
-    margin: 0;
-  }
+html, body {height: 100%; margin: 0;}
 
 body {
   font-family: "Segoe UI", sans-serif;
   background: #1A2933;
   color: #FFF;
 }
+
+h1 {
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  margin-top: 10px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* Styling of window frame and titlebar */
 body {
   border: 1px solid #48545c;
   overflow-y: hidden;
 }
-
-
 
 #titlebar {
   display: block;
@@ -25,21 +33,38 @@ body {
   height: 32px;
   width: calc(100% - 2px);
 }
+
+.maximized #titlebar {
+  width: 100%;
+  padding: 0;
+}
+
+#main {
+  height: calc(100% - 32px);
+  margin-top: 32px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
 #titlebar {
   padding: 4px;
 }
+
 #titlebar #drag-region {
   width: 100%;
   height: 100%;
   -webkit-app-region: drag;
 }
+
 #titlebar {
   color: #FFF;
 }
+
 #titlebar #drag-region {
   display: grid;
   grid-template-columns: auto 138px;
 }
+
 #window-title {
   grid-column: 1;
   display: flex;
@@ -49,11 +74,17 @@ body {
   font-family: "Segoe UI", sans-serif;
   font-size: 12px;
 }
+
+.maximized #window-title {
+  margin-left: 12px;
+}
+
 #window-title span {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.5;
 }
+
 #window-controls {
   display: grid;
   grid-template-columns: repeat(3, 46px);
@@ -64,9 +95,11 @@ body {
   font-family: "Segoe MDL2 Assets";
   font-size: 10px;
 }
+
 #window-controls {
   -webkit-app-region: no-drag;
 }
+
 #window-controls .button {
   grid-row: 1 / span 1;
   display: flex;
@@ -75,46 +108,47 @@ body {
   width: 100%;
   height: 100%;
 }
+
 #window-controls .button {
   user-select: none;
   cursor: default;
-  color: #BBB;
 }
+
 #window-controls .button:hover {
-  background: rgba(255,255,255,0.2);
-  color: #FFF;
+  background: rgba(255,255,255,0.1);
 }
-#window-controls #min-button {
+
+#window-controls .button:active {
+  background: rgba(255,255,255,0.2);
+}
+
+#close-button:hover {
+  background: #E81123 !important;
+}
+
+#close-button:active {
+  background: #f1707a !important;
+  color: #000;
+}
+
+#min-button {
   grid-column: 1;
 }
-#window-controls #max-button, #window-controls #restore-button {
+#max-button, #restore-button {
   grid-column: 2;
 }
-#window-controls #restore-button {
-  display: none;
-}
-#window-controls #close-button {
+#close-button {
   grid-column: 3;
 }
-#window-controls #close-button:hover {
-  background: #E81123;
+
+#restore-button {
+  display: none !important;
 }
 
-#main {
-  height: calc(100% - 32px);
-  margin-top: 32px;
-  padding: 20px;
-  overflow-y: auto;
+.maximized #restore-button {
+  display: flex !important;
 }
 
-
-
-h1 {
-  margin: 0 0 10px 0;
-  font-weight: 600;
-  line-height: 1.2;
-}
-p {
-  margin-top: 10px;
-  color: rgba(255,255,255,0.4);
+.maximized #max-button {
+  display: none;
 }

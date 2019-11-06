@@ -6,7 +6,7 @@ A guide to creating a seamless Windows 10 title bar in your Electron app.
 
 I was inspired by the way [Hyper terminal](https://hyper.is/) achieved a native look, and a tutorial by [Shawn Rakowski](https://github.com/srakowski) (no longer available, it seems).
 
-I'm going to start with the [Electron quick start app](https://github.com/electron/electron-quick-start). The full example source code is located in the `src` directory of this repo.
+I'm going to start with the [Electron quick start app](https://github.com/electron/electron-quick-start). The full example source code is located in the [`src` directory](/tree/master/src) of this repo.
 
 #### Note
 
@@ -26,7 +26,8 @@ html, body {height: 100%; margin: 0;}
 
 body {
   font-family: "Segoe UI", sans-serif;
-  background: #1A2933; color: #FFF;
+  background: #1A2933;
+  color: #FFF;
 }
 h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
 p {margin-top: 10px; color: rgba(255,255,255,0.4);}
@@ -42,8 +43,8 @@ We're going to remove the standard Windows title bar and border. In `main.js`, m
 
 ```javascript
 mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 800,
+    height: 600,
     frame: false,
     backgroundColor: '#FFF',
     webPreferences: {
@@ -95,8 +96,9 @@ body {
 }
 
 #main {
+  position: absolute;
   height: calc(100% - 32px);
-  margin-top: 32px;
+  top: 32px;
   padding: 20px;
   overflow-y: auto;
 }
@@ -122,6 +124,7 @@ We need to give it a style of `-webkit-app-region: drag`. The reason we don't ju
 #titlebar {
   padding: 4px;
 }
+
 #titlebar #drag-region {
   width: 100%;
   height: 100%;
@@ -171,6 +174,7 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
 #titlebar {
   color: #FFF;
 }
+
 #window-controls {
   display: grid;
   grid-template-columns: repeat(3, 46px);
@@ -181,6 +185,7 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
   font-family: "Segoe MDL2 Assets";
   font-size: 10px;
 }
+
 #window-controls .button {
   grid-row: 1 / span 1;
   display: flex;
@@ -210,20 +215,28 @@ First of all, the buttons shouldn't be part of the window drag region, so we'll 
 #window-controls {
   -webkit-app-region: no-drag;
 }
+
 #window-controls .button {
   user-select: none;
   cursor: default;
-  color: #BBB;
 }
 #window-controls .button:hover {
+  background: rgba(255,255,255,0.1);
+}
+#window-controls .button:active {
   background: rgba(255,255,255,0.2);
-  color: #FFF;
 }
-#window-controls #close-button:hover {
-  background: #E81123;
+
+#close-button:hover {
+  background: #E81123 !important;
 }
-#window-controls #restore-button {
-  display: none;
+#close-button:active {
+  background: #f1707a !important;
+  color: #000;
+}
+
+#restore-button {
+  display: none !important;
 }
 ```
 
@@ -250,15 +263,17 @@ I've gone with grid, as you can change the template columns to suit whatever you
   display: grid;
   grid-template-columns: auto 138px;
 }
+
 #window-title {
   grid-column: 1;
   display: flex;
   align-items: center;
-  font-family: "Segoe UI", sans-serif;
-  font-size: 12px;
   margin-left: 8px;
   overflow-x: hidden;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
 }
+
 #window-title span {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -285,51 +300,62 @@ document.onreadystatechange = () => {
 };
 
 function handleWindowControls() {
-    let window = remote.getCurrentWindow();
-    const minButton = document.getElementById('min-button'),
-        maxButton = document.getElementById('max-button'),
-        restoreButton = document.getElementById('restore-button'),
-        closeButton = document.getElementById('close-button');
 
-    minButton.addEventListener("click", event => {
-        window = remote.getCurrentWindow();
-        window.minimize();
+    let win = remote.getCurrentWindow();
+    // Make minimise/maximise/restore/close buttons work when they are clicked
+    document.getElementById('min-button').addEventListener("click", event => {
+        win.minimize();
     });
 
-    maxButton.addEventListener("click", event => {
-        window = remote.getCurrentWindow();
-        window.maximize();
+    document.getElementById('max-button').addEventListener("click", event => {
+        win.maximize();
     });
 
-    restoreButton.addEventListener("click", event => {
-        window = remote.getCurrentWindow();
-        window.unmaximize();
+    document.getElementById('restore-button').addEventListener("click", event => {
+        win.unmaximize();
     });
 
-    // Toggle maximise/restore buttons when maximisation/unmaximisation
-    // occurs by means other than button clicks e.g. double-clicking
-    // the title bar:
+    document.getElementById('close-button').addEventListener("click", event => {
+        win.close();
+    });
+
+    // Toggle maximise/restore buttons when maximisation/unmaximisation occurs
     toggleMaxRestoreButtons();
-    window.on('maximize', toggleMaxRestoreButtons);
-    window.on('unmaximize', toggleMaxRestoreButtons);
-
-    closeButton.addEventListener("click", event => {
-        window = remote.getCurrentWindow();
-        window.close();
-    });
+    win.on('maximize', toggleMaxRestoreButtons);
+    win.on('unmaximize', toggleMaxRestoreButtons);
 
     function toggleMaxRestoreButtons() {
-        window = remote.getCurrentWindow();
-        if (window.isMaximized()) {
-            maxButton.style.display = "none";
-            restoreButton.style.display = "flex";
+        if (win.isMaximized()) {
+            document.body.classList.add('maximized');
         } else {
-            restoreButton.style.display = "none";
-            maxButton.style.display = "flex";
+            document.body.classList.remove('maximized');
         }
     }
 }
 ```
+
+## 9. Adding styling for when the window is maximized
+Now all there is to do is to add some CSS for when the window is in it's maximized state. This is so we can do things like switch the maximize/restore buttons and remove the border around the window and padding in the title bar.
+
+```css
+.maximized #titlebar {
+  width: 100%;
+  padding: 0;
+}
+
+.maximized #window-title {
+  margin-left: 12px;
+}
+
+.maximized #restore-button {
+  display: flex !important;
+}
+
+.maximized #max-button {
+  display: none;
+}
+```
+
 
 [Final]: screenshots/Final.png
 [S1]: screenshots/S1.png
