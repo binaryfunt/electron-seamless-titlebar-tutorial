@@ -96,9 +96,8 @@ body {
 }
 
 #main {
-  position: absolute;
   height: calc(100% - 32px);
-  top: 32px;
+  margin-top: 32px;
   padding: 20px;
   overflow-y: auto;
 }
