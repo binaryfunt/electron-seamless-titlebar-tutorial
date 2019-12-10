@@ -6,7 +6,7 @@ A guide to creating a seamless Windows 10 title bar in your Electron app.
 
 I was inspired by the way [Hyper terminal](https://hyper.is/) achieved a native look, and a tutorial by [Shawn Rakowski](https://github.com/srakowski) (no longer available, it seems).
 
-I'm going to start with the [Electron quick start app](https://github.com/electron/electron-quick-start). The full example source code is located in the [`src` directory](/tree/master/src) of this repo.
+I'm going to start with the [Electron quick start app](https://github.com/electron/electron-quick-start). The full example source code is located in the [`src` directory](/src) of this repo.
 
 #### Note
 
@@ -96,9 +96,8 @@ body {
 }
 
 #main {
-  position: absolute;
   height: calc(100% - 32px);
-  top: 32px;
+  margin-top: 32px;
   padding: 20px;
   overflow-y: auto;
 }
