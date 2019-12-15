@@ -4,6 +4,18 @@ html {box-sizing: border-box;}
 *, *:before, *:after {box-sizing: inherit;}
 html, body {height: 100%; margin: 0;}
 
+@font-face {
+  font-family: "Segoe MDL2 Assets";
+  src: local("Segoe MDL2 Assets"),
+       url("Segoe fonts/SegMDL2.ttf");
+}
+
+@font-face {
+  font-family: "Segoe UI";
+  src: local("Segoe UI"),
+       url("Segoe fonts/segui.ttf");
+}
+
 body {
   font-family: "Segoe UI", sans-serif;
   background: #1A2933;

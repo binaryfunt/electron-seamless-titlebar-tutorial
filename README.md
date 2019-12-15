@@ -8,9 +8,27 @@ I was inspired by the way [Hyper terminal](https://hyper.is/) achieved a native 
 
 I'm going to start with the [Electron quick start app](https://github.com/electron/electron-quick-start). The full example source code is located in the [`src` directory](/src) of this repo.
 
-#### Note
+#### Notes
 
 Currently, there is a bug with window maximization on Electron versions 6.0.0+ on Windows (see [#6](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/issues/6)). The latest version of Electron you can use is 5.0.11.
+
+This tutorial makes use of the Segoe UI and Segoe MDL2 icon fonts, which are commonplace in Windows. These fonts are included in every Windows 10 installation, but if you plan to make your Windows 10 style titlebar work on a Mac, you'll need to import the fonts  as custom CSS fonts, from the font files provided by Microsoft:
+
+```css
+@font-face {
+  font-family: "Segoe MDL2 Assets";
+  src: local("Segoe MDL2 Assets"),
+       url("Segoe fonts/SegMDL2.ttf");
+}
+
+@font-face {
+  font-family: "Segoe UI";
+  src: local("Segoe UI"),
+       url("Segoe fonts/segui.ttf");
+}
+```
+
+The fonts are included in a directory in the example app or you can [get the Segoe UI and MDL2 icon fonts here](https://aka.ms/SegoeFonts)
 
 ## 1. Add some styles
 
