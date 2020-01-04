@@ -112,6 +112,7 @@ body {
 #window-controls .button {
   user-select: none;
   cursor: default;
+  fill: white;
 }
 
 #window-controls .button:hover {
