@@ -7,6 +7,13 @@ const remote = require('electron').remote;
 document.onreadystatechange = () => {
     if (document.readyState == "complete") {
         handleWindowControls();
+
+        let display = remote.screen.getPrimaryDisplay();
+        printDPI(display);
+
+        remote.screen.on('display-metrics-changed', (event, display, changedMetrics) => {
+            printDPI(display);
+        })
     }
 };
 
@@ -42,4 +49,10 @@ function handleWindowControls() {
             document.body.classList.remove('maximized');
         }
     }
+}
+
+
+function printDPI(display) {
+    document.getElementById('dpr-span').innerHTML = `${window.devicePixelRatio}`;
+    document.getElementById('dsf-span').innerHTML = `${display.scaleFactor}`;
 }
