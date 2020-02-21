@@ -8,6 +8,8 @@ document.onreadystatechange = () => {
     if (document.readyState == "complete") {
         handleWindowControls();
 
+        document.getElementById('electron-ver').innerHTML = `${process.versions.electron}`
+
         let display = remote.screen.getPrimaryDisplay();
         printDPI(display);
 
