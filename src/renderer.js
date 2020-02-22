@@ -9,13 +9,6 @@ document.onreadystatechange = () => {
         handleWindowControls();
 
         document.getElementById('electron-ver').innerHTML = `${process.versions.electron}`
-
-        let display = remote.screen.getPrimaryDisplay();
-        printDPI(display);
-
-        remote.screen.on('display-metrics-changed', (event, display, changedMetrics) => {
-            printDPI(display);
-        })
     }
 };
 
@@ -51,10 +44,4 @@ function handleWindowControls() {
             document.body.classList.remove('maximized');
         }
     }
-}
-
-
-function printDPI(display) {
-    document.getElementById('dpr-span').innerHTML = `${window.devicePixelRatio}`;
-    document.getElementById('dsf-span').innerHTML = `${display.scaleFactor}`;
 }
