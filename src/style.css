@@ -110,7 +110,8 @@ body {
 }
 
 @media (-webkit-device-pixel-ratio: 1.5), (device-pixel-ratio: 1.5),
-(-webkit-device-pixel-ratio: 2), (device-pixel-ratio: 2) {
+(-webkit-device-pixel-ratio: 2), (device-pixel-ratio: 2),
+(-webkit-device-pixel-ratio: 3), (device-pixel-ratio: 3) {
   #window-controls .icon {
     width: 10px;
     height: 10px;
