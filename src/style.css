@@ -136,8 +136,10 @@ body {
 }
 
 #close-button:active {
-  background: #f1707a !important;
-  color: #000;
+  background: #F1707A !important;
+}
+#close-button:active .icon {
+  filter: invert(1);
 }
 
 #min-button {
