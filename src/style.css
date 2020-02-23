@@ -70,7 +70,7 @@ body {
   display: flex;
   align-items: center;
   margin-left: 8px;
-  overflow-x: hidden;
+  overflow: hidden;
   font-family: "Segoe UI", sans-serif;
   font-size: 12px;
 }
@@ -82,6 +82,7 @@ body {
 #window-title span {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   line-height: 1.5;
 }
 

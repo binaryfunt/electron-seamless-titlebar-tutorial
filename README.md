@@ -144,7 +144,7 @@ It's time to add the minimise, maximise, restore and close buttons. To do this, 
 | Restore  | E923    |
 | Close    | E8BB    |
 
-We'll put the buttons inside `#drag-region`
+We'll put the buttons inside the `#drag-region` div
 
 ```html
 <header id="titlebar">
@@ -208,7 +208,7 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
 
 ## 6. Style the window control buttons
 
-First of all, the buttons shouldn't be part of the window drag region, so we'll exclude them. Also, we don't to be able to select the symbols as text, nor do we want to see a text edit cursor when we hover on the buttons. Speaking of hover, let's add hover effects. The default Windows close button colour is `#E81123`. And, we'll hide the restore button by default (again, we'll implement switching between the maximise/restore buttons later).
+First of all, the buttons shouldn't be part of the window drag region, so we'll exclude them. Also, we don't want to be able to select the symbols as text, nor do we want to see a text edit cursor when we hover on the buttons. Speaking of hover, let's add hover effects. The default Windows close button colour is `#E81123`. And, we'll hide the restore button by default (again, we'll implement switching between the maximise/restore buttons later).
 
 ```css
 #window-controls {
@@ -247,7 +247,7 @@ There are lots of ways you could do this, depending on whether you wanted to add
 
 ![S7]
 
-My way is to put it the left. Add this inside the `#drag-region` element:
+My way is to put it the left. Add this inside the `#drag-region` div, above the window controls:
 
 ```html
 <div id="window-title">
@@ -268,7 +268,7 @@ I've gone with grid, as you can change the template columns to suit whatever you
   display: flex;
   align-items: center;
   margin-left: 8px;
-  overflow-x: hidden;
+  overflow: hidden;
   font-family: "Segoe UI", sans-serif;
   font-size: 12px;
 }
@@ -276,6 +276,7 @@ I've gone with grid, as you can change the template columns to suit whatever you
 #window-title span {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   line-height: 1.5;
 }
 ```
@@ -334,7 +335,8 @@ function handleWindowControls() {
 ```
 
 ## 9. Adding styling for when the window is maximized
-Now all there is to do is to add some CSS for when the window is in it's maximized state. This is so we can do things like switch the maximize/restore buttons and remove the border around the window and padding in the title bar.
+
+Now all there is to do is to add some CSS for when the window is in the maximized state. When the window is maximized we should be able to drag from the very top down to restore it, so we should remove the drag region padding and set its width to 100%. We also need to swap between the maximize and restore buttons.
 
 ```css
 .maximized #titlebar {
