@@ -92,8 +92,6 @@ body {
   top: 0;
   right: 0;
   height: 100%;
-  font-family: "Segoe MDL2 Assets";
-  font-size: 10px;
 }
 
 #window-controls {
@@ -120,7 +118,6 @@ body {
 
 #window-controls .button {
   user-select: none;
-  cursor: default;
 }
 
 #window-controls .button:hover {

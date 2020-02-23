@@ -10,7 +10,7 @@ I'm going to start with the [Electron quick start app](https://github.com/electr
 
 #### Note
 
-Currently, there is a bug with window maximization on Electron versions 6.0.0+ on Windows (see [#6](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/issues/6)). The latest version of Electron you can use is 5.0.11.
+Currently, there is a bug with window maximization on Electron versions 6.0.0+ on Windows (see [#6](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/issues/6)).
 
 ## 1. Add some styles
 
@@ -135,14 +135,9 @@ If you reload now, you will be able to drag the window around again, and the win
 
 ## 5. Add window control buttons
 
-It's time to add the minimise, maximise, restore and close buttons. To do this, we'll need the symbols, which are part of the [Segoe MDL2 Assets](https://docs.microsoft.com/en-us/windows/uwp/design/style/segoe-ui-symbol-font) font.
+It's time to add the minimise, maximise, restore and close buttons. To do this, we'll need the icons. [A previous version of this tutorial](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/tree/v1.0.0#5-add-window-control-buttons) used the [Segoe MDL2 Assets](https://docs.microsoft.com/en-us/windows/uwp/design/style/segoe-ui-symbol-font) font for the icons. However, these have some issues, such as [high DPI display scaling](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/issues/11) and [lack of cross-platform compatibility](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/issues/1).
 
-| Symbol   | Unicode |
-| -------- | ------- |
-| Minimise | E921    |
-| Maximise | E922    |
-| Restore  | E923    |
-| Close    | E8BB    |
+To overcome these issues, I recreated the icons as PNGs for crisp viewing at display scaling factors from 100-350% (but only the predefined Windows 10 scaling values; for custom scaling values you will probably see some anti-aliasing blur/pixelation and may be better off using the old method or the [SVG approach](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/pull/13)). The icons are located in [`src/icons`](src/icons). Making use of the [`srcset` attribute](https://bitsofco.de/the-srcset-and-sizes-attributes/#thesrcsetattribute) of the `<img>`, we can load the correct resolution icons for the user's display scaling factor/device pixel ratio.
 
 We'll put the buttons inside `#drag-region`
 
@@ -150,24 +145,29 @@ We'll put the buttons inside `#drag-region`
 <header id="titlebar">
   <div id="drag-region">
     <div id="window-controls">
+
       <div class="button" id="min-button">
-        <span>&#xE921;</span>
+        <img class="icon" srcset="icons/min-w-10.png 1x, icons/min-w-12.png 1.25x, icons/min-w-15.png 1.5x, icons/min-w-15.png 1.75x, icons/min-w-20.png 2x, icons/min-w-20.png 2.25x, icons/min-w-24.png 2.5x, icons/min-w-30.png 3x, icons/min-w-30.png 3.5x" draggable="false" />
       </div>
+
       <div class="button" id="max-button">
-        <span>&#xE922;</span>
+        <img class="icon" srcset="icons/max-w-10.png 1x, icons/max-w-12.png 1.25x, icons/max-w-15.png 1.5x, icons/max-w-15.png 1.75x, icons/max-w-20.png 2x, icons/max-w-20.png 2.25x, icons/max-w-24.png 2.5x, icons/max-w-30.png 3x, icons/max-w-30.png 3.5x" draggable="false" />
       </div>
+
       <div class="button" id="restore-button">
-        <span>&#xE923;</span>
+        <img class="icon" srcset="icons/restore-w-10.png 1x, icons/restore-w-12.png 1.25x, icons/restore-w-15.png 1.5x, icons/restore-w-15.png 1.75x, icons/restore-w-20.png 2x, icons/restore-w-20.png 2.25x, icons/restore-w-24.png 2.5x, icons/restore-w-30.png 3x, icons/restore-w-30.png 3.5x" draggable="false" />
       </div>
+
       <div class="button" id="close-button">
-        <span>&#xE8BB;</span>
+        <img class="icon" srcset="icons/close-w-10.png 1x, icons/close-w-12.png 1.25x, icons/close-w-15.png 1.5x, icons/close-w-15.png 1.75x, icons/close-w-20.png 2x, icons/close-w-20.png 2.25x, icons/close-w-24.png 2.5x, icons/close-w-30.png 3x, icons/close-w-30.png 3.5x" draggable="false" />
       </div>
+
     </div>
   </div>
 </header>
 ```
 
-The buttons are 46px wide & 32px high, and the font size for the symbols is 10px. We'll use [CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/) to overlap the maximise/restore buttons, and later use JavaScript to alternate between them.
+The buttons are 46px wide & 32px high. We'll use [CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/) to overlap the maximise/restore buttons, and later use JavaScript to alternate between them.
 
 ```css
 #titlebar {
@@ -181,8 +181,6 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
   top: 0;
   right: 0;
   height: 100%;
-  font-family: "Segoe MDL2 Assets";
-  font-size: 10px;
 }
 
 #window-controls .button {
@@ -193,22 +191,37 @@ The buttons are 46px wide & 32px high, and the font size for the symbols is 10px
   width: 100%;
   height: 100%;
 }
-#window-controls #min-button {
+#min-button {
   grid-column: 1;
 }
-#window-controls #max-button, #window-controls #restore-button {
+#max-button, #restore-button {
   grid-column: 2;
 }
-#window-controls #close-button {
+#close-button {
   grid-column: 3;
 }
 ```
 
 ![S5]
 
+For some reason, the PNG icons are not rendered at the correct 10 device independent pixels width/height for the scaling factors 150%, 200% or 300%, so we need to target those using a [media query](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) and the [`-webkit-device-pixel-ratio` feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/-webkit-device-pixel-ratio).
+
+```css
+@media (-webkit-device-pixel-ratio: 1.5), (device-pixel-ratio: 1.5),
+(-webkit-device-pixel-ratio: 2), (device-pixel-ratio: 2),
+(-webkit-device-pixel-ratio: 3), (device-pixel-ratio: 3) {
+  #window-controls .icon {
+    width: 10px;
+    height: 10px;
+  }
+}
+```
+
+The feature `device-pixel-ratio` without the webkit prefix does not exist yet, but no harm in future-proofing. The reason we don't just give the width/height rule for all device pixel ratios is that this leads to fuzzy anti-aliasing for some of them.
+
 ## 6. Style the window control buttons
 
-First of all, the buttons shouldn't be part of the window drag region, so we'll exclude them. Also, we don't to be able to select the symbols as text, nor do we want to see a text edit cursor when we hover on the buttons. Speaking of hover, let's add hover effects. The default Windows close button colour is `#E81123`. And, we'll hide the restore button by default (again, we'll implement switching between the maximise/restore buttons later).
+First of all, the buttons shouldn't be part of the window drag region, so we'll exclude them. Also, we don't to be able to select the icon images. We also need to add hover effects. The default Windows close button hover colour is `#E81123`. When active, the button becomes `#F1707A` and the icon becomes black, which can be achieved using [the invert filter](https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/invert). Lastly, we'll hide the restore button by default (again, we'll implement switching between the maximise/restore buttons later).
 
 ```css
 #window-controls {
@@ -217,7 +230,6 @@ First of all, the buttons shouldn't be part of the window drag region, so we'll 
 
 #window-controls .button {
   user-select: none;
-  cursor: default;
 }
 #window-controls .button:hover {
   background: rgba(255,255,255,0.1);
@@ -230,8 +242,10 @@ First of all, the buttons shouldn't be part of the window drag region, so we'll 
   background: #E81123 !important;
 }
 #close-button:active {
-  background: #f1707a !important;
-  color: #000;
+  background: #F1707A !important;
+}
+#close-button:active .icon {
+  filter: invert(1);
 }
 
 #restore-button {
@@ -280,7 +294,7 @@ I've gone with grid, as you can change the template columns to suit whatever you
 }
 ```
 
-At this point, you can remove the background colour from `#titlebar` and admire your handywork.
+At this point, you can remove the background colour from `#titlebar` and admire your handiwork.
 
 ![Final]
 
