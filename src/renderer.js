@@ -7,6 +7,8 @@ const remote = require('electron').remote;
 document.onreadystatechange = () => {
     if (document.readyState == "complete") {
         handleWindowControls();
+
+        document.getElementById('electron-ver').innerHTML = `${process.versions.electron}`
     }
 };
 

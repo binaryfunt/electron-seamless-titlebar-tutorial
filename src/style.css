@@ -93,8 +93,6 @@ body {
   top: 0;
   right: 0;
   height: 100%;
-  font-family: "Segoe MDL2 Assets";
-  font-size: 10px;
 }
 
 #window-controls {
@@ -110,9 +108,17 @@ body {
   height: 100%;
 }
 
+@media (-webkit-device-pixel-ratio: 1.5), (device-pixel-ratio: 1.5),
+(-webkit-device-pixel-ratio: 2), (device-pixel-ratio: 2),
+(-webkit-device-pixel-ratio: 3), (device-pixel-ratio: 3) {
+  #window-controls .icon {
+    width: 10px;
+    height: 10px;
+  }
+}
+
 #window-controls .button {
   user-select: none;
-  cursor: default;
 }
 
 #window-controls .button:hover {
@@ -128,8 +134,10 @@ body {
 }
 
 #close-button:active {
-  background: #f1707a !important;
-  color: #000;
+  background: #F1707A !important;
+}
+#close-button:active .icon {
+  filter: invert(1);
 }
 
 #min-button {
