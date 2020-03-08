@@ -301,21 +301,28 @@ At this point, you can remove the background colour from `#titlebar` and admire 
 
 ## 8. Implement window controls functionality
 
-Now, open `renderer.js`. We're going to code the windows controls, which is part of a single BrowserWindow instance and so should be in `renderer.js` as opposed to `main.js` ([see the docs](https://electronjs.org/docs/tutorial/application-architecture)). The code isn't too complex so here it is in its entirety:
+Now, open `renderer.js`. We're going to code the windows controls, which is part of a single BrowserWindow instance and so should be in `renderer.js` as opposed to `main.js` (according to my interpretation of [the docs](https://electronjs.org/docs/tutorial/application-architecture)). The code isn't too complex so here it is in its entirety:
 
 ```javascript
 const remote = require('electron').remote;
 
+const win = remote.getCurrentWindow();
+
 // When document has loaded, initialise
-document.onreadystatechange = () => {
+document.onreadystatechange = (event) => {
     if (document.readyState == "complete") {
         handleWindowControls();
     }
 };
 
-function handleWindowControls() {
+window.onbeforeunload = (event) => {
+    /* If window is reloaded, remove win event listeners
+    (DOM element listeners get auto garbage collected but not
+    Electron win listeners as the win is not dereferenced unless closed) */
+    win.removeAllListeners();
+}
 
-    let win = remote.getCurrentWindow();
+function handleWindowControls() {
     // Make minimise/maximise/restore/close buttons work when they are clicked
     document.getElementById('min-button').addEventListener("click", event => {
         win.minimize();
