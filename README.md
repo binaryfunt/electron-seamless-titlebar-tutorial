@@ -8,10 +8,6 @@ I was inspired by the way [Hyper terminal](https://hyper.is/) achieved a native 
 
 I'm going to start with the [Electron quick start app](https://github.com/electron/electron-quick-start). The full example source code is located in the [`src` directory](/src) of this repo.
 
-#### Note
-
-Currently, there is a bug with window maximization on Electron versions 6.0.0+ on Windows (see [#6](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/issues/6)).
-
 ## 1. Add some styles
 
 ![S1]
@@ -354,6 +350,8 @@ function handleWindowControls() {
     }
 }
 ```
+
+Note: there is a bug with window maximization in some Electron versions on Windows (see [#6](https://github.com/binaryfunt/electron-seamless-titlebar-tutorial/issues/6)). It seems to have been fixed as of Electron 8.2.1+.
 
 ## 9. Adding styling for when the window is maximized
 
