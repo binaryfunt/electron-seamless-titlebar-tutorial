@@ -3,7 +3,8 @@
 // All of the Node.js APIs are available in this process.
 const remote = require('electron').remote;
 
-const win = remote.getCurrentWindow();
+const win = remote.getCurrentWindow(); /* Note this is different to the
+html global `window` variable */
 
 // When document has loaded, initialise
 document.onreadystatechange = (event) => {

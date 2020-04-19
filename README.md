@@ -6,13 +6,15 @@ A guide to creating a seamless Windows 10 title bar in your Electron app.
 
 I was inspired by the way [Hyper terminal](https://hyper.is/) achieved a native look, and a tutorial by [Shawn Rakowski](https://github.com/srakowski) (no longer available, it seems).
 
-I'm going to start with the [Electron quick start app](https://github.com/electron/electron-quick-start). The full example source code is located in the [`src` directory](/src) of this repo.
+I'm going to start with a version of the [Electron quick start app](https://github.com/electron/electron-quick-start) - see the [`src-start` directory](/src-start) of this repo for the starting point of the tutorial, including installation instructions.
+
+(The full final source code is located in the [`src` directory](/src).)
 
 ## 1. Add some styles
 
 ![S1]
 
-First, I'm just going to add some basic styles to the quick start app make it look a bit better than some sort of web 1.0 site. Create a CSS file
+First, I'm just going to add some basic styles to the quick start app make it look a bit better than some sort of web 1.0 site. Open/create the empty `style.css` and add the following:
 
 ```css
 * {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
@@ -29,7 +31,7 @@ h1 {margin: 0 0 10px 0; font-weight: 600; line-height: 1.2;}
 p {margin-top: 10px; color: rgba(255,255,255,0.4);}
 ```
 
-Add a link to it in the `head` of `index.html`.
+If there isn't already a link to it in the `<head>` element of `index.html`, add one.
 
 ## 2. Make the window frameless
 
@@ -302,7 +304,8 @@ Now, open `renderer.js`. We're going to code the windows controls, which is part
 ```javascript
 const remote = require('electron').remote;
 
-const win = remote.getCurrentWindow();
+const win = remote.getCurrentWindow(); /* Note this is different to the
+html global `window` variable */
 
 // When document has loaded, initialise
 document.onreadystatechange = (event) => {

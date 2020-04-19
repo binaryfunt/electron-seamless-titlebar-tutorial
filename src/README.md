@@ -1,4 +1,6 @@
-## Installation of example app
+## Installation of complete example app
+
+(For the tutorial starting point app, see the [`src-start` directory](/src-start))
 
 Assuming you have [Node](https://nodejs.org/en/) installed, clone this repo and run `npm install` in the `src` directory.
 
