@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2.1.0
+      
+#     - name: Setup Node.js environment
+#       uses: actions/setup-node@v1.4.1
+#       with:
+#         node-version: '10.x'
+    
+    - name: Check /src & /src-start packages match
+      run: |
+        diff -Z src/package.json src-start/package.json
+        diff -Z src/package-lock.json src-start/package-lock.json
