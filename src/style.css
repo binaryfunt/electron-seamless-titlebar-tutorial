@@ -123,6 +123,7 @@ body {
 
 #window-controls .button:hover {
   background: rgba(255,255,255,0.1);
+  transition: background 0.25s;
 }
 
 #window-controls .button:active {
