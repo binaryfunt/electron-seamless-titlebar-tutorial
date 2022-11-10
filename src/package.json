@@ -10,6 +10,6 @@
   "author": "binaryfunt",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^9.4.0"
+    "electron": "^18.3.7"
   }
 }
